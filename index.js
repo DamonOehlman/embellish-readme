@@ -16,7 +16,7 @@ type AstSegmenter = number | () => boolean;
 
 const REGEX_LICENSE = /^licen(c|s)e$/i;
 
-async function embelish({ content, filename } /*: EmbelishOptions */) {
+async function embelish({ content, filename } /*: EmbelishOptions */) /*: Promise<string> */ {
   if (filename) {
     return embelish({ content: await readFileContent(filename) });
   }
@@ -26,10 +26,9 @@ async function embelish({ content, filename } /*: EmbelishOptions */) {
   }
 
   const ast = parse(content);
-
-  debug(`parsed ${ast.length} markdown ast nodes`);
   insertLicense(ast);
-  console.log(toMarkdown(ast));
+  insertBadges(ast);
+  return Promise.resolve(toMarkdown(ast));
 }
 
 function readFileContent(filename) {
@@ -42,6 +41,18 @@ function readFileContent(filename) {
       resolve(content);
     });
   });
+}
+
+function insertBadges(ast) {
+  const firstNonPrimaryHeadingIndex = ast.findIndex((item) => {
+    return item.type === 'heading' && item.level > 1;
+  });
+
+  if (firstNonPrimaryHeadingIndex === -1) {
+    ast.push(ContentGenerator.badges());
+  } else {
+    ast.splice(firstNonPrimaryHeadingIndex, 0, ContentGenerator.badges());
+  }
 }
 
 function insertLicense(ast) {
