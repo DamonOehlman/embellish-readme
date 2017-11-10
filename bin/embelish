@@ -3,4 +3,4 @@ const path = require('path');
 const fs = require('fs');
 const { embelish } = require('..');
 
-console.log(embelish({ filename: path.resolve(process.argv[2]) }));
+embelish({ filename: path.resolve(process.argv[2]) }).then(content => console.log(content));

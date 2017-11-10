@@ -4,6 +4,7 @@ const fs = require('fs');
 const { parse } = require('marked-ast');
 const toMarkdown = require('marked-ast-markdown');
 const { ContentGenerator } = require('./lib/content');
+const { Badges } = require('./lib/badges');
 
 /*::
 type EmbelishOptions = {
@@ -51,7 +52,11 @@ function insertBadges(ast) {
   if (firstNonPrimaryHeadingIndex === -1) {
     ast.push(ContentGenerator.badges());
   } else {
+    // insert the newly generated badges
     ast.splice(firstNonPrimaryHeadingIndex, 0, ContentGenerator.badges());
+
+    // remove any of the previously generated (or manually created badges)
+    removeNodeIfBadges(ast, firstNonPrimaryHeadingIndex - 1);
   }
 }
 
@@ -63,6 +68,25 @@ function insertLicense(ast) {
   debug(`license header index = ${licenseHeaderIndex}`);
   if (licenseHeaderIndex >= 0) {
     ast.splice(licenseHeaderIndex + 1, ast.length, ContentGenerator.license());
+  }
+}
+
+function removeNodeIfBadges(ast, index) /*: void */ {
+  const node = ast[index];
+  if (node.type !== 'paragraph') {
+    return;
+  }
+
+  const nonEmptyNodes = node.text.filter(content => content !== ' ');
+  const badgeUrls = nonEmptyNodes
+    .map(node => node.type === 'link' && node.href)
+    .filter(href => Badges.isBadgeUrl(href));
+
+  // if we only have badge urls in the paragraph then remove the line and recurse to the
+  // ast node above (same index after we remove this one)
+  if (badgeUrls.length === nonEmptyNodes.length) {
+    ast.splice(index, 1);
+    removeNodeIfBadges(ast, index - 1)
   }
 }
 

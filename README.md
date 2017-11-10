@@ -2,6 +2,10 @@
 
 Embelish is a simple utility to add various embelishments to your projects README (or other markdown files).
 
+[![NPM](https://nodei.co/npm/gendocs.png)](https://nodei.co/npm/gendocs/)
+
+[![unstable](https://img.shields.io/badge/stability-unstable-yellowgreen.svg)](https://github.com/dominictarr/stability#unstable) [![bitHound Score](https://www.bithound.io/github/DamonOehlman/gendocs/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/gendocs) 
+
 ## Features
 
 ### Auto insertion of project badges
