@@ -6,6 +6,16 @@ Embelish is a simple utility to add various embelishments to your projects READM
 
 [![bitHound Score](https://www.bithound.io/github/DamonOehlman/embelish/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/embelish)
 
+## General usage
+
+Once installed (either globally or locally to your project):
+
+```
+embelish <targetfile>
+```
+
+e.g. `embelish README.md`
+
 ## Features
 
 ### Auto insertion of project badges
