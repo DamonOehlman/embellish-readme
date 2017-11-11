@@ -95,7 +95,7 @@ async function generateLicense(packageData /*: Package */, basePath /*: string *
   }
 
   const licenseName = packageData.license.toLowerCase();
-  const licenseTemplateFile = path.resolve(basePath, 'licenses', `${licenseName}.txt`);
+  const licenseTemplateFile = path.resolve(__dirname, 'licenses', `${licenseName}.txt`);
   const haveLicenseTemplate = await isFilePresent(licenseTemplateFile);
   const templateContent = haveLicenseTemplate ? await readFileContent(licenseTemplateFile) : '';
   const template = formatter(templateContent);
