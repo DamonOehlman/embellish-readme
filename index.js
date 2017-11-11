@@ -29,7 +29,7 @@ async function embelish({ content, filename, packageData, basePath } /*: Embelis
     return embelish({
       content: await readFileContent(filename),
       basePath: path.dirname(packageFile),
-      packageData: await readPackageData(packageFile)
+      packageData: await Package.readFromFile(packageFile)
     });
   }
 
@@ -125,22 +125,6 @@ function readFileContent(filename /*: string */) {
       }
 
       resolve(content);
-    });
-  });
-}
-
-function readPackageData(filename /*: string */) /*: Promise<Package> */ {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filename, 'utf-8', (err, content) => {
-      if (err) {
-        return reject(err);
-      }
-
-      try {
-        resolve(Package.deserialize(JSON.parse(content)));
-      } catch (e) {
-        reject(e);
-      }
     });
   });
 }
