@@ -2,8 +2,6 @@
 
 Embelish is a simple utility to add various embelishments to your projects README (or other markdown files).
 
-[![NPM]](https://nodei.co/npm/embelish/)(<https://nodei.co/npm/embelish.png>)
-
 [![NPM](https://nodei.co/npm/embelish.png)](https://nodei.co/npm/embelish/)
 
 [![bitHound Score](https://www.bithound.io/github/DamonOehlman/embelish/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/embelish)
