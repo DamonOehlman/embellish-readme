@@ -3,4 +3,14 @@ const path = require('path');
 const fs = require('fs');
 const { embelish } = require('..');
 
-embelish({ filename: path.resolve(process.argv[2]) }).then(content => console.log(content));
+const filename = path.resolve(process.argv[2]);
+
+embelish({ filename }).then(content => {
+  fs.writeFile(filename, content, 'utf-8', (err) => {
+    if (err) {
+      console.error(err);
+    }
+
+    console.log('done');
+  });
+});
