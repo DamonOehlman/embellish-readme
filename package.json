@@ -14,5 +14,8 @@
   },
   "scripts": {
     "embellish": "./bin/embellish README.md"
+  },
+  "bin": {
+    "embellish": "./bin/embellish"
   }
 }
