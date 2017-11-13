@@ -2,9 +2,9 @@
 
 Embelish is a simple utility to add various embelishments to your projects README (or other markdown files).
 
-[![NPM](https://nodei.co/npm/embellish.png)](https://nodei.co/npm/embellish/)
+[![NPM](https://nodei.co/npm/embellish-readme.png)](https://nodei.co/npm/embellish-readme/)
 
-[![bitHound Score](https://www.bithound.io/github/DamonOehlman/embellish/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/embellish)
+[![bitHound Score](https://www.bithound.io/github/DamonOehlman/embellish-readme/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/embellish-readme)
 
 ## General usage
 
@@ -32,8 +32,8 @@ _Upcoming feature._
 
 When updating the target markdown file, `embelish` will check for the presence of an `examples` directory in the current working directory.  If found, it will then iterate through the child directories and include each of the examples in the target file.  It will include two things:
 
-1. The content of any `README.md` found in the `examples/&lt;example&gt;` directory.
-2. The content of any `index.js` file found in the `examples/&lt;example&gt;` directory as a GHFM code block.
+1. The content of any `README.md` found in the `examples/&amp;lt;example&amp;gt;` directory.
+2. The content of any `index.js` file found in the `examples/&amp;lt;example&amp;gt;` directory as a GHFM code block.
 
 
 This technique currently works well for browserify friendly demos, however, more work is to be done to achieve compatibility with other tooling.
