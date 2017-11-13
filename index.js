@@ -107,9 +107,11 @@ async function generateLicense(packageData /*: Package */, basePath /*: string *
 }
 
 async function generateBadges(packageData /*: Package */, basePath /*: string */) {
-  return [
+  const initialBadges = packageData.private ? [] : [
     ContentGenerator.paragraph(Badges.nodeico(packageData))
-  ].concat([
+  ];
+
+  return initialBadges.concat([
     await isFilePresent(path.resolve(basePath, '.travis.yml'))
     ? Badges.travis(packageData)
     : null,
