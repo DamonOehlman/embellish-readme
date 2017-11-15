@@ -1,13 +1,13 @@
 // @flow
 const debug = require('debug')('embelish');
-const fs = require('fs');
 const path = require('path');
 const { parse } = require('marked-ast');
 const toMarkdown = require('marked-ast-markdown');
-const formatter = require('formatter');
 const { ContentGenerator } = require('./lib/content');
 const { Badges } = require('./lib/badges');
 const { Package } = require('./lib/package');
+const { readFileContent, isFilePresent } = require('./lib/file-tools');
+const { insertLicense } = require('./lib/license-generator');
 
 /*::
 type EmbelishOptions = {
@@ -19,8 +19,6 @@ type EmbelishOptions = {
 
 type AstSegmenter = number | () => boolean;
 */
-
-const REGEX_LICENSE = /^licen(c|s)e$/i;
 
 async function embelish({ content, filename, packageData, basePath } /*: EmbelishOptions */) /*: Promise<string> */ {
   if (filename) {
@@ -59,17 +57,6 @@ async function insertBadges(ast, packageData /*: Package */, basePath /*: string
   }
 }
 
-async function insertLicense(ast, packageData /*: Package */, basePath /*: string */) {
-  const licenseHeaderIndex = ast.findIndex((item) => {
-    return item.type === 'heading' && REGEX_LICENSE.test(item.raw);
-  });
-
-  debug(`license header index = ${licenseHeaderIndex}`);
-  if (licenseHeaderIndex >= 0) {
-    ast.splice(licenseHeaderIndex + 1, ast.length, await generateLicense(packageData, basePath));
-  }
-}
-
 function removeNodeIfBadges(ast, index) /*: void */ {
   const node = ast[index];
   if (node.type !== 'paragraph') {
@@ -89,23 +76,6 @@ function removeNodeIfBadges(ast, index) /*: void */ {
   }
 }
 
-async function generateLicense(packageData /*: Package */, basePath /*: string */) {
-  if (!packageData.license) {
-    return '';
-  }
-
-  const licenseName = packageData.license.toLowerCase();
-  const licenseTemplateFile = path.resolve(__dirname, 'licenses', `${licenseName}.txt`);
-  const haveLicenseTemplate = await isFilePresent(licenseTemplateFile);
-  const templateContent = haveLicenseTemplate ? await readFileContent(licenseTemplateFile) : '';
-  const template = formatter(templateContent);
-
-  return ContentGenerator.paragraph(template({
-    year: new Date().getFullYear(),
-    holder: packageData.author
-  }));
-}
-
 async function generateBadges(packageData /*: Package */, basePath /*: string */) {
   const initialBadges = packageData.private ? [] : [
     ContentGenerator.paragraph(Badges.nodeico(packageData))
@@ -117,22 +87,6 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
     : null,
     Badges.bithound(packageData)
   ].filter(Boolean).map(ContentGenerator.paragraph)).reverse();
-}
-
-function readFileContent(filename /*: string */) {
-  return new Promise((resolve, reject) => {
-    fs.readFile(filename, 'utf-8', (err, content) => {
-      if (err) {
-        return reject(err);
-      }
-
-      resolve(content);
-    });
-  });
-}
-
-function isFilePresent(filename /*: string */) /*: Promise<boolean> */ {
-  return new Promise(resolve => fs.exists(filename, resolve));
 }
 
 module.exports = {
