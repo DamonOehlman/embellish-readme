@@ -24,7 +24,9 @@ Let's face it, badges are the hotness.  Adding them to your readme though is a p
 
 ### Auto insertion of license information
 
-When embelishing a README file, a search is done for a `## LICENSE` header.  After this header all existing content is remove and an applicable license description added for the project license as described in the project `package.json` file. 
+When embelishing a README file, a search is done for a `## LICENSE` header.  After this header all existing content is remove and an applicable license description added for the project license as described in the project `package.json` file.
+
+This also generates the appropriate `LICENSE` file in the current working directory.
 
 ### Auto insertion of examples
 
