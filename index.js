@@ -18,6 +18,8 @@ type EmbelishOptions = {
 };
 
 type AstSegmenter = number | () => boolean;
+
+import type { BadgeBuilder } from './lib/badges';
 */
 
 async function embelish({ content, filename, packageData, basePath } /*: EmbelishOptions */) /*: Promise<string> */ {
@@ -76,17 +78,15 @@ function removeNodeIfBadges(ast, index) /*: void */ {
   }
 }
 
-async function generateBadges(packageData /*: Package */, basePath /*: string */) {
-  const initialBadges = packageData.private ? [] : [
-    ContentGenerator.paragraph(Badges.nodeico(packageData))
+async function generateBadges(packageData /*: Package */, basePath /*: string */) /*: Promise<string> */ {
+  const badgeLoaders /*: BadgeBuilder[] */ = [
+    Badges.nodeico,
+    Badges.travis,
+    Badges.bithound, // note: soon their service is going away :(
+    Badges.codeClimateMaintainability
   ];
 
-  return initialBadges.concat([
-    await isFilePresent(path.resolve(basePath, '.travis.yml'))
-    ? Badges.travis(packageData)
-    : null,
-    Badges.bithound(packageData)
-  ].filter(Boolean).map(ContentGenerator.paragraph)).reverse();
+  return Promise.all(badgeLoaders).then(badges => badges.filter(Boolean).map(ContentGenerator.paragraph));
 }
 
 module.exports = {
