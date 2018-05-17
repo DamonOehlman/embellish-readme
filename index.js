@@ -89,7 +89,7 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
 
   out('!{bold}generating badges');
   const promises = badgeLoaders.map(loader => loader(packageData, basePath));
-  return Promise.all(promises).then(badges =>  badges.filter(Boolean).map(ContentGenerator.paragraph));
+  return Promise.all(promises).then(badges =>  badges.filter(Boolean).map(ContentGenerator.paragraph).reverse());
 }
 
 module.exports = {

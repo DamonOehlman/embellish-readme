@@ -5,6 +5,8 @@ README (or other markdown files).
 
 [![NPM](https://nodei.co/npm/embellish-readme.png)](https://nodei.co/npm/embellish-readme/)
 
+[![Maintainability](https://api.codeclimate.com/v1/badges/f23f4341a91e917eac0f/maintainability)](https://codeclimate.com/github/DamonOehlman/embellish-readme/maintainability)
+
 ## General usage
 
 Once installed (either globally or locally to your project):
