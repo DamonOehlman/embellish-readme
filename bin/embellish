@@ -2,6 +2,7 @@
 const path = require('path');
 const fs = require('fs');
 const { embelish } = require('..');
+const out = require('out');
 
 const filename = path.resolve(process.argv[2]);
 
@@ -11,6 +12,6 @@ embelish({ filename }).then(content => {
       console.error(err);
     }
 
-    console.log('done');
+    out('\n!{bold}README embellishment complete');
   });
 });

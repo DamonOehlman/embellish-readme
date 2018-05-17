@@ -1,6 +1,7 @@
 // @flow
-const debug = require('debug')('embelish');
+const debug = require('debug')('embellish');
 const path = require('path');
+const out = require('out');
 const { parse } = require('marked-ast');
 const toMarkdown = require('marked-ast-markdown');
 const { ContentGenerator } = require('./lib/content');
@@ -86,7 +87,9 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
     Badges.codeClimateMaintainability
   ];
 
-  return Promise.all(badgeLoaders).then(badges => badges.filter(Boolean).map(ContentGenerator.paragraph));
+  out('!{bold}generating badges');
+  const promises = badgeLoaders.map(loader => loader(packageData, basePath));
+  return Promise.all(promises).then(badges =>  badges.filter(Boolean).map(ContentGenerator.paragraph));
 }
 
 module.exports = {
