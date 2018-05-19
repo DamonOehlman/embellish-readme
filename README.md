@@ -1,20 +1,21 @@
 # embelish
 
-Embelish is a simple utility to add various embelishments to your projects README (or other markdown files).
+Embelish is a simple utility to add various embellishments to your projects
+README (or other markdown files).
 
 [![NPM](https://nodei.co/npm/embellish-readme.png)](https://nodei.co/npm/embellish-readme/)
 
-[![bitHound Score](https://www.bithound.io/github/DamonOehlman/embellish-readme/badges/score.svg)](https://www.bithound.io/github/DamonOehlman/embellish-readme)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f23f4341a91e917eac0f/maintainability)](https://codeclimate.com/github/DamonOehlman/embellish-readme/maintainability)
 
 ## General usage
 
 Once installed (either globally or locally to your project):
 
 ```
-embelish <targetfile>
+embellish <targetfile>
 ```
 
-e.g. `embelish README.md`
+e.g. `embellish README.md`
 
 ## Features
 
@@ -24,7 +25,7 @@ Let's face it, badges are the hotness.  Adding them to your readme though is a p
 
 ### Auto insertion of license information
 
-When embelishing a README file, a search is done for a `## LICENSE` header.  After this header all existing content is remove and an applicable license description added for the project license as described in the project `package.json` file.
+When embellishing a README file, a search is done for a `## LICENSE` header.  After this header all existing content is remove and an applicable license description added for the project license as described in the project `package.json` file.
 
 This also generates the appropriate `LICENSE` file in the current working directory.
 
@@ -32,7 +33,7 @@ This also generates the appropriate `LICENSE` file in the current working direct
 
 _Upcoming feature._
 
-When updating the target markdown file, `embelish` will check for the presence of an `examples` directory in the current working directory.  If found, it will then iterate through the child directories and include each of the examples in the target file.  It will include two things:
+When updating the target markdown file, `embellish` will check for the presence of an `examples` directory in the current working directory.  If found, it will then iterate through the child directories and include each of the examples in the target file.  It will include two things:
 
 1. The content of any `README.md` found in the `examples/[example]/` directory.
 2. The content of any `index.js` file found in the `examples/[example]/` directory as a GHFM code block.
@@ -44,7 +45,7 @@ This technique currently works well for browserify friendly demos, however, more
 
 The MIT License (MIT)
 
-Copyright (c) 2017 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2018 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
