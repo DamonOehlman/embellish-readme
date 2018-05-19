@@ -1,7 +1,6 @@
 // @flow
 const debug = require('debug')('embellish');
 const path = require('path');
-const out = require('out');
 const { parse } = require('marked-ast');
 const toMarkdown = require('marked-ast-markdown');
 const { ContentGenerator } = require('./lib/content');
@@ -11,11 +10,14 @@ const { readFileContent, isFilePresent } = require('./lib/file-tools');
 const { insertLicense } = require('./lib/license-generator');
 
 /*::
+type Reporter = (string): void;
+
 type EmbelishOptions = {
   content?: string,
   filename?: string,
   basePath?: string,
-  packageData: Package
+  packageData: Package,
+  reporter?: Reporter,
 };
 
 type AstSegmenter = number | () => boolean;
@@ -23,14 +25,15 @@ type AstSegmenter = number | () => boolean;
 import type { BadgeBuilder } from './lib/badges';
 */
 
-async function embellish({ content, filename, packageData, basePath } /*: EmbelishOptions */) /*: Promise<string> */ {
+async function embellish({ content, filename, packageData, basePath, reporter } /*: EmbelishOptions */) /*: Promise<string> */ {
   if (filename) {
     const packageFile = path.resolve(path.dirname(filename), 'package.json');
 
     return embellish({
       content: await readFileContent(filename),
       basePath: path.dirname(packageFile),
-      packageData: await Package.readFromFile(packageFile)
+      packageData: await Package.readFromFile(packageFile),
+      reporter
     });
   }
 
@@ -39,17 +42,17 @@ async function embellish({ content, filename, packageData, basePath } /*: Embeli
   }
 
   const ast = parse(content);
-  await insertLicense(ast, packageData, basePath);
-  await insertBadges(ast, packageData, basePath);
+  await insertLicense(ast, packageData, basePath, reporter);
+  await insertBadges(ast, packageData, basePath, reporter);
   return Promise.resolve(toMarkdown(ast));
 }
 
-async function insertBadges(ast, packageData /*: Package */, basePath /*: string */) {
+async function insertBadges(ast, packageData /*: Package */, basePath /*: string */, reporter /*: Reporter */) {
   const firstNonPrimaryHeadingIndex = ast.findIndex((item) => {
     return item.type === 'heading' && item.level > 1;
   });
 
-  const badges = await generateBadges(packageData, basePath);
+  const badges = await generateBadges(packageData, basePath, reporter);
   if (firstNonPrimaryHeadingIndex === -1) {
     badges.forEach(badge => ast.push(badge));
   } else {
@@ -79,7 +82,7 @@ function removeNodeIfBadges(ast, index) /*: void */ {
   }
 }
 
-async function generateBadges(packageData /*: Package */, basePath /*: string */) /*: Promise<string> */ {
+async function generateBadges(packageData /*: Package */, basePath /*: string */, reporter /*: ?Reporter */) /*: Promise<string> */ {
   const badgeLoaders /*: (BadgeBuilder | string)[] */ = [
     Badges.nodeico,
     '---',
@@ -89,13 +92,13 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
     Badges.codeClimateMaintainability,
   ];
 
-  out('!{bold}generating badges');
+  reporter && reporter('!{bold}generating badges');
   const promises = badgeLoaders.map(loader => {
     if (typeof loader == 'string') {
       return loader;
     }
 
-    return loader(packageData, basePath);
+    return loader(packageData, basePath, reporter);
   });
 
   // build the blocks
