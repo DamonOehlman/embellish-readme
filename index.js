@@ -23,11 +23,11 @@ type AstSegmenter = number | () => boolean;
 import type { BadgeBuilder } from './lib/badges';
 */
 
-async function embelish({ content, filename, packageData, basePath } /*: EmbelishOptions */) /*: Promise<string> */ {
+async function embellish({ content, filename, packageData, basePath } /*: EmbelishOptions */) /*: Promise<string> */ {
   if (filename) {
     const packageFile = path.resolve(path.dirname(filename), 'package.json');
 
-    return embelish({
+    return embellish({
       content: await readFileContent(filename),
       basePath: path.dirname(packageFile),
       packageData: await Package.readFromFile(packageFile)
@@ -80,18 +80,48 @@ function removeNodeIfBadges(ast, index) /*: void */ {
 }
 
 async function generateBadges(packageData /*: Package */, basePath /*: string */) /*: Promise<string> */ {
-  const badgeLoaders /*: BadgeBuilder[] */ = [
+  const badgeLoaders /*: (BadgeBuilder | string)[] */ = [
     Badges.nodeico,
+    '---',
+    Badges.stability,
     Badges.travis,
     Badges.bithound, // note: soon their service is going away :(
-    Badges.codeClimateMaintainability
+    Badges.codeClimateMaintainability,
   ];
 
+  console.log(packageData);
+
   out('!{bold}generating badges');
-  const promises = badgeLoaders.map(loader => loader(packageData, basePath));
-  return Promise.all(promises).then(badges =>  badges.filter(Boolean).map(ContentGenerator.paragraph).reverse());
+  const promises = badgeLoaders.map(loader => {
+    if (typeof loader == 'string') {
+      return loader;
+    }
+
+    return loader(packageData, basePath);
+  });
+
+  // build the blocks
+  const blocks = await Promise.all(promises).then(badges => badges.filter(Boolean));
+
+  console.log(blocks);
+
+  // create the paragraphs
+  const paragraphs = blocks.reduce((memo, block) => {
+    if (block === '---') {
+      memo.push([]);
+    } else {
+      memo[memo.length - 1].push(block);
+    }
+
+    return memo;
+  }, [[]]);
+
+  return paragraphs
+    .reverse() // TODO: remove this when we are generating paragraphs in the expected order
+    .map(para => para.join(' '))
+    .map(ContentGenerator.paragraph);
 }
 
 module.exports = {
-  embelish
+  embellish
 };
