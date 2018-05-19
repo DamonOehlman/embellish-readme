@@ -15,7 +15,8 @@
     "r2": "^2.0.1"
   },
   "scripts": {
-    "embellish": "./bin/embellish README.md"
+    "embellish": "./bin/embellish README.md",
+    "test": "tape test/index.js"
   },
   "bin": {
     "embellish": "./bin/embellish"
