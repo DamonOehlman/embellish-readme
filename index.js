@@ -89,8 +89,6 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
     Badges.codeClimateMaintainability,
   ];
 
-  console.log(packageData);
-
   out('!{bold}generating badges');
   const promises = badgeLoaders.map(loader => {
     if (typeof loader == 'string') {
@@ -102,8 +100,6 @@ async function generateBadges(packageData /*: Package */, basePath /*: string */
 
   // build the blocks
   const blocks = await Promise.all(promises).then(badges => badges.filter(Boolean));
-
-  console.log(blocks);
 
   // create the paragraphs
   const paragraphs = blocks.reduce((memo, block) => {
