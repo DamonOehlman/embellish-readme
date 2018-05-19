@@ -20,5 +20,8 @@
   "bin": {
     "embellish": "./bin/embellish"
   },
-  "stability": "unstable"
+  "stability": "unstable",
+  "devDependencies": {
+    "tape": "^4.9.0"
+  }
 }
