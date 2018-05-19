@@ -1,6 +1,6 @@
-# embelish
+# embellish
 
-Embelish is a simple utility to add various embellishments to your projects
+Embellish is a simple utility to add various embellishments to your projects
 README (or other markdown files).
 
 [![NPM](https://nodei.co/npm/embellish-readme.png)](https://nodei.co/npm/embellish-readme/)
