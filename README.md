@@ -38,14 +38,13 @@ When updating the target markdown file, `embellish` will check for the presence 
 1. The content of any `README.md` found in the `examples/[example]/` directory.
 2. The content of any `index.js` file found in the `examples/[example]/` directory as a GHFM code block.
 
-
 This technique currently works well for browserify friendly demos, however, more work is to be done to achieve compatibility with other tooling.
 
 ## LICENSE
 
 The MIT License (MIT)
 
-Copyright (c) 2018 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2019 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -64,5 +63,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
-
