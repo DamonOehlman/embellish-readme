@@ -29,6 +29,18 @@ When embellishing a README file, a search is done for a `## LICENSE` header.  Af
 
 This also generates the appropriate `LICENSE` file in the current working directory.
 
+__NOTE:__ In the event that you wish to display a difference licence holder to the author information
+that is contained within `package.json` simply add the following to your `package.json` file:
+
+```json
+{
+  "name": "foo",
+  ...,
+  "embellish": {
+    "licenseHolder": "Acme Corp"
+  }
+}
+
 ### Auto insertion of examples
 
 _Upcoming feature._
