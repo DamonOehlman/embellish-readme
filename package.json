@@ -7,11 +7,11 @@
   "author": "Damon Oehlman <damon.oehlman@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "debug": "^3.1.0",
+    "debug": "^4.1.1",
     "formatter": "^0.4.1",
     "marked-ast": "^0.3.0",
     "marked-ast-markdown": "^2.0.1",
-    "out": "^1.0.0",
+    "out": "^1.1.0",
     "r2": "^2.0.1"
   },
   "scripts": {
