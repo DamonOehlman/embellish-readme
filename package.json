@@ -10,7 +10,7 @@
     "debug": "^4.1.1",
     "formatter": "^0.4.1",
     "marked-ast": "^0.3.0",
-    "marked-ast-markdown": "^2.0.1",
+    "marked-ast-markdown": "^2.1.0",
     "out": "^1.1.0",
     "r2": "^2.0.1"
   },

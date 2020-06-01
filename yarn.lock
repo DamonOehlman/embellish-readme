@@ -13,9 +13,10 @@ debug@^4.1.1:
   dependencies:
     ms "^2.1.1"
 
-entities@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/entities/-/entities-1.1.1.tgz#6e5c2d0a5621b5dadaecef80b90edfb5cd7772f0"
+entities@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.2.tgz#ac74db0bba8d33808bbf36809c3a5c3683531436"
+  integrity sha512-dmD3AvJQBUjKpcNkoqr+x+IF0SdRtPz9Vk0uTy4yWqga9ibB6s4v++QFWNohjiUGoMlF552ZvNyXDxz5iW0qmw==
 
 formatter@^0.4.1:
   version "0.4.1"
@@ -25,12 +26,12 @@ is-typedarray@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/is-typedarray/-/is-typedarray-1.0.0.tgz#e479c80858df0c1b11ddda6940f96011fcda4a9a"
 
-marked-ast-markdown@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/marked-ast-markdown/-/marked-ast-markdown-2.0.1.tgz#3b51e940533de66e279721344339b7c8c656bb59"
-  integrity sha512-c7l2EOCpG/VcaX7OYa2xFtWrGOVz/rL7tLqZL0+eak9Vw3HGBry+qbR9IWccGZiwfgCdWt+HvLSootQIBh/KjA==
+marked-ast-markdown@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/marked-ast-markdown/-/marked-ast-markdown-2.1.0.tgz#1756e237e528c59a10bc04992b7d64bc445f9478"
+  integrity sha512-vGC/NGGlvyu4I1Uox41a/ScpPbyYL74UWd7GsWjB9pmpmK1iMKqt0d5KdW+wShplefoDZvhm9kRwPlEYE85YGA==
   dependencies:
-    entities "^1.1.1"
+    entities "^2.0.2"
     whisk "^1.0.0"
 
 marked-ast@^0.3.0:
