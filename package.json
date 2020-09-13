@@ -21,7 +21,8 @@
   },
   "scripts": {
     "build": "tsc",
-    "embellish": "./bin/embellish README.md"
+    "embellish": "./bin/embellish README.md",
+    "prepare": "tsc"
   },
   "bin": {
     "embellish": "./bin/embellish"
