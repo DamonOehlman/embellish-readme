@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 const path = require('path');
 const fs = require('fs');
-const { embellish } = require('..');
+const { embellish } = require('../lib');
 const out = require('out');
 
 const filename = path.resolve(process.argv[2]);
