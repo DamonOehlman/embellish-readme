@@ -3,6 +3,22 @@ import { isFilePresent } from './file-tools';
 import { Package, PackageData, getRepository } from './package';
 import * as out from 'out';
 import * as bent from 'bent';
+import * as t from 'io-ts';
+import { isRight } from 'fp-ts/lib/Either';
+
+// minimalist deserializer of code climate data
+const CodeClimateDataProps = t.type({
+  data: t.array(
+    t.type({
+      id: t.string,
+      type: t.string,
+      attributes: t.type({
+        badge_token: t.string,
+        branch: t.string,
+      }),
+    }),
+  ),
+});
 
 const getJSON = bent('json');
 
@@ -107,9 +123,13 @@ export const BUILDERS = {
 
 async function fetchCodeClimateId(slug: string) {
   try {
-    const result = await getJSON(`https://api.codeclimate.com/v1/repos?github_slug=${slug}`);
-    if (Array.isArray(result) && result.length > 0) {
-      return (result[0].attributes || {}).badge_token as string;
+    const response = await getJSON(`https://api.codeclimate.com/v1/repos?github_slug=${slug}`);
+    const data = CodeClimateDataProps.decode(response);
+    if (isRight(data)) {
+      const results = data.right.data;
+      if (results.length > 0) {
+        return results[0].attributes.badge_token;
+      }
     }
   } catch (e) {}
 }

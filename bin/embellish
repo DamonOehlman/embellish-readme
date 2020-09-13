@@ -6,8 +6,8 @@ const out = require('out');
 
 const filename = path.resolve(process.argv[2]);
 
-embellish({ filename }).then(content => {
-  fs.writeFile(filename, content, 'utf-8', (err) => {
+embellish({ type: 'file', filename }).then(content => {
+  fs.writeFile(filename, content, 'utf-8', err => {
     if (err) {
       console.error(err);
     }

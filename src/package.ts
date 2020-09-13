@@ -7,10 +7,13 @@ const EmbellishOverridesProps = t.partial({
   licenseHolder: t.string,
 });
 
-const RepositoryProps = t.type({
-  type: t.string,
-  url: t.string,
-});
+const RepositoryProps = t.union([
+  t.string,
+  t.type({
+    type: t.string,
+    url: t.string,
+  }),
+]);
 
 const PackageStabilityProps = t.keyof({
   deprecated: null,
@@ -74,11 +77,12 @@ export class Package {
 }
 
 export const getRepository = (data: PackageData) => {
-  if (!data.repository) {
+  const { repository } = data;
+  if (!repository) {
     return undefined;
   }
 
-  const url = data.repository.url;
+  const url = typeof repository === 'string' ? repository : repository.url;
   const match = REPO_REGEXES.reduce<RegExpExecArray | null>((memo, regex) => {
     return memo || regex.exec(url);
   }, null);
