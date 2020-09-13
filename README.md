@@ -29,7 +29,7 @@ When embellishing a README file, a search is done for a `## LICENSE` header.  Af
 
 This also generates the appropriate `LICENSE` file in the current working directory.
 
-__NOTE:__ In the event that you wish to display a difference licence holder to the author information
+**NOTE:** In the event that you wish to display a difference licence holder to the author information
 that is contained within `package.json` simply add the following to your `package.json` file:
 
 ```json
@@ -56,7 +56,7 @@ This technique currently works well for browserify friendly demos, however, more
 
 The MIT License (MIT)
 
-Copyright (c) 2019 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2020 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
