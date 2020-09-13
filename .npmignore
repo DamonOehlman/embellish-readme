@@ -1,6 +1,5 @@
 .prettierrc.yml
 tsconfig.json
 src
-licenses
 yarn-error.log
 .vs-code
