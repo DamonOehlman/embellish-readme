@@ -40,6 +40,7 @@ that is contained within `package.json` simply add the following to your `packag
     "licenseHolder": "Acme Corp"
   }
 }
+```
 
 ### Auto insertion of examples
 
@@ -56,7 +57,7 @@ This technique currently works well for browserify friendly demos, however, more
 
 The MIT License (MIT)
 
-Copyright (c) 2020 Damon Oehlman <damon.oehlman@gmail.com>
+Copyright (c) 2023 Damon Oehlman <damon.oehlman@gmail.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
